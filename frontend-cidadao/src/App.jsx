@@ -12,7 +12,7 @@ function App() {
             <p className="font-semibold text-amber-400">AssisteJus</p>
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-            Portal Cidadão
+            Assistente Def Sul
           </h1>
           <p className="text-slate-400 max-w-2xl mx-auto">
             Assistente Jurídico da 14ª Regional da DPE-BA
