@@ -99,7 +99,7 @@ export const Cadastro = () => {
               <UserPlus className="inline mr-2" />
               {loading ? "Cadastrando..." : "Criar Conta"}
             </button>
-            <p className="text-center text-sm text-slate-400">
+            <p className="text-center text-sm text-white">
               Já tem uma conta?{" "}
               <Link
                 to="/login"

@@ -28,7 +28,7 @@ export const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <div className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700">
+        <div className="bg-slate-800/50 p-8 rounded-2xl border border-green-700">
           <div className="flex items-center gap-3 mb-6">
             <Shield className="w-8 h-8 text-amber-500" />
             <h1 className="text-2xl font-bold">Painel do Defensor</h1>
@@ -61,7 +61,7 @@ export const Login = () => {
               <LogIn className="inline mr-2" />
               {loading ? "Entrando..." : "Entrar"}
             </button>
-            <p className="text-center text-sm text-slate-400">
+            <p className="text-center text-sm text-white">
               Não tem uma conta?
               <Link
                 to="/cadastro"

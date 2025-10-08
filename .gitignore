@@ -5,3 +5,5 @@ dist/
 build/
 *.log
 #
+backend/.env
+frontend-defensor/.env
