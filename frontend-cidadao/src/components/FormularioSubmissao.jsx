@@ -12,7 +12,7 @@ import {
   Play,
   Square,
 } from "lucide-react";
-
+import { documentosPorAcao } from "../data//components/documentos.js";
 export const FormularioSubmissao = () => {
   // --- ESTADOS DO FORMULÁRIO ---
   const [nome, setNome] = useState("");
@@ -21,6 +21,9 @@ export const FormularioSubmissao = () => {
   const [tipoAcao, setTipoAcao] = useState("");
   const [relato, setRelato] = useState("");
   const [documentFiles, setDocumentFiles] = useState([]);
+
+  const [acaoEspecifica, setAcaoEspecifica] = useState("");
+  const [documentosMarcados, setDocumentosMarcados] = useState([]);
 
   // --- ESTADOS DA GRAVAÇÃO DE ÁUDIO ---
   const [isRecording, setIsRecording] = useState(false);
@@ -32,6 +35,13 @@ export const FormularioSubmissao = () => {
   const [loading, setLoading] = useState(false);
   const [generatedCredentials, setGeneratedCredentials] = useState(null);
   const documentInputRef = useRef(null);
+
+  const acoesDisponiveis = tipoAcao
+    ? Object.keys(documentosPorAcao[tipoAcao] || {})
+    : [];
+  const listaDeDocumentos = acaoEspecifica
+    ? documentosPorAcao[tipoAcao]?.[acaoEspecifica]
+    : [];
 
   // --- LÓGICA DE VALIDAÇÃO DE INPUT ---
   const handleNumericInput = (e, setter) => {
@@ -123,6 +133,15 @@ export const FormularioSubmissao = () => {
     return { chaveAcesso, protocolo };
   };
 
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    if (checked) {
+      setDocumentosMarcados((prev) => [...prev, name]);
+    } else {
+      setDocumentosMarcados((prev) => prev.filter((doc) => doc !== name));
+    }
+  };
+
   // --- LÓGICA DE SUBMISSÃO ---
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -133,12 +152,18 @@ export const FormularioSubmissao = () => {
     formData.append("nome", nome);
     formData.append("cpf", cpf);
     formData.append("telefone", telefone);
-    formData.append("tipoAcao", tipoAcao);
+    formData.append("tipoAcao", `${tipoAcao} - ${acaoEspecifica}`);
     formData.append("relato", relato);
-
+    formData.append(
+      "documentos_informados",
+      JSON.stringify(documentosMarcados)
+    );
     // Anexa o áudio gravado, se existir
     if (audioBlob) {
       formData.append("audio", audioBlob, "gravacao.webm");
+      documentFiles.forEach((file) => {
+        formData.append("documentos", file);
+      });
     }
 
     // Anexa todos os documentos
@@ -174,6 +199,7 @@ export const FormularioSubmissao = () => {
       setLoading(false);
     }
   };
+
   const resetForm = () => {
     console.log("Botão clicado! A função resetForm foi chamada.");
     setNome("");
@@ -289,23 +315,41 @@ export const FormularioSubmissao = () => {
           <div>
             <select
               value={tipoAcao}
-              onChange={(e) => setTipoAcao(e.target.value)}
+              onChange={(e) => {
+                setTipoAcao(e.target.value);
+                setAcaoEspecifica("");
+                setDocumentosMarcados([]);
+              }}
               required
-              className="w-full px-4 py-3 bg-slate-700 rounded-lg border border-slate-600 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+              className="w-full px-4 py-3 bg-slate-700 rounded-lg ..."
             >
               <option value="" disabled>
-                Selecione o Tipo de Ação
+                1. Selecione a Área do Direito
               </option>
-              <option value="familia">
-                Direito de Família (Pensão, Divórcio, Guarda)
-              </option>
-              <option value="consumidor">Direito do Consumidor</option>
-              <option value="saude">
-                Direito à Saúde (Medicamentos, Cirurgias)
-              </option>
+              <option value="familia">Direito de Família</option>
+              <option value="civel">Direito Cível</option>
+              <option value="consumidor">Direito Do Consumidor</option>
+              <option value="saude">Direito à Saúde</option>
               <option value="criminal">Defesa Criminal</option>
-              <option value="outro">Outro</option>
+              <option value="infancia">Direito Infância e Juventude</option>
             </select>
+            {tipoAcao && (
+              <select
+                value={acaoEspecifica}
+                onChange={(e) => setAcaoEspecifica(e.target.value)}
+                required
+                className="w-full px-4 py-3 mt-5 bg-slate-700 rounded-lg ..."
+              >
+                <option value="" disabled>
+                  2. Selecione a Ação Específica
+                </option>
+                {acoesDisponiveis.map((acao) => (
+                  <option key={acao} value={acao}>
+                    {acao}
+                  </option>
+                ))}
+              </select>
+            )}
           </div>
           <div>
             <textarea
@@ -316,7 +360,29 @@ export const FormularioSubmissao = () => {
               className="w-full px-4 py-3 bg-slate-700 rounded-lg border border-slate-600 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
             ></textarea>
           </div>
-
+          {acaoEspecifica && (
+            <div className="space-y-3 bg-slate-800 p-4 rounded-lg">
+              <h3 className="font-semibold text-slate-300">
+                3. Marque os documentos que você possui:
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {listaDeDocumentos.map((doc) => (
+                  <label
+                    key={doc}
+                    className="flex items-center gap-2 p-2 rounded-md hover:bg-slate-700 cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      name={doc}
+                      onChange={handleCheckboxChange}
+                      className="w-4 h-4 bg-slate-600 border-slate-500 rounded text-blue-500 focus:ring-blue-500"
+                    />
+                    <span className="text-slate-400 text-sm">{doc}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
           <div className="space-y-4">
             <p className="font-semibold">Anexos (Opcional)</p>
             {/* Gravação de Áudio */}
