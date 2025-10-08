@@ -1,5 +1,5 @@
 import crypto from "crypto";
-
+import bcrypt from "bcrypt";
 // Adicione 'export' aqui
 export const generateCredentials = (casoTipo) => {
   const randomPart1 = crypto.randomBytes(3).readUIntBE(0, 3) % 100000;
@@ -50,4 +50,12 @@ export const verifyKey = (key, storedHash) => {
     .digest("hex");
   // Compara se o hash recriado é igual ao hash que estava no banco
   return hash === computedHash;
+};
+export const hashPassword = async (password) => {
+  const saltRounds = 10;
+  return await bcrypt.hash(password, saltRounds);
+};
+
+export const verifyPassword = async (password, hash) => {
+  return await bcrypt.compare(password, hash);
 };

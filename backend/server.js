@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import statusRoutes from "./src/routes/status.js";
 import casosRoutes from "./src/routes/casos.js";
+import defensoresRoutes from "./src/routes/defensores.js";
 
 dotenv.config();
 
@@ -13,6 +14,9 @@ const PORT = process.env.PORT || 8001;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Rota Defensores
+app.use("/api/defensores", defensoresRoutes);
 
 // Rota principal de casos
 app.use("/api/casos", casosRoutes);
