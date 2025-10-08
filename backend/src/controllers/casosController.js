@@ -31,8 +31,8 @@ export const criarNovoCaso = async (req, res) => {
     // --- INÍCIO DO PROCESSAMENTO AVANÇADO ---
     if (req.files) {
       // 1. Transcrição de Áudio (se houver)
-      {
-        /* if (req.files.audio) {
+
+      /* if (req.files.audio) {
         const audioFile = req.files.audio[0];
         console.log("Iniciando transcrição de áudio...");
         const textoDoAudio = await transcribeAudio(audioFile.path);
@@ -40,7 +40,7 @@ export const criarNovoCaso = async (req, res) => {
         console.log("Transcrição concluída.");
       }
         */
-      }
+
       // 2. OCR de Imagens (se houver)
       if (req.files.documentos) {
         for (const docFile of req.files.documentos) {
