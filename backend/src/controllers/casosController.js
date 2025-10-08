@@ -4,7 +4,6 @@ import {
   hashKeyWithSalt,
 } from "../services/securityService.js";
 import fs from "fs/promises";
-import documentos_informados from "../../frontend-cidadao/src/data/documentos_informados.json";
 // Importe os novos serviços que vamos usar
 import { transcribeAudio } from "../services/audioService.js";
 import { extractTextFromImage } from "../services/documentService.js";
