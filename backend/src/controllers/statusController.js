@@ -7,7 +7,9 @@ import { verifyKey } from "../services/securityService.js";
 export const consultarStatus = async (req, res) => {
   // 1. Pega o protocolo e a chave da URL (query parameters)
   const { protocolo, chave } = req.query;
-
+  console.log("\n--- DEBUG: CONSULTA DE STATUS ---");
+  console.log("Protocolo Recebido:", protocolo);
+  console.log("Chave Recebida (Texto Puro):", chave);
   if (!protocolo || !chave) {
     return res
       .status(400)
