@@ -1,44 +1,48 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem("token"));
-  const [defensor, setDefensor] = useState(null);
+  // Tenta pegar o token salvo no armazenamento local do navegador
+  const [token, setToken] = useState(localStorage.getItem("defensorToken"));
 
   const login = async (email, senha) => {
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/defensores/login`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, senha }),
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/defensores/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, senha }),
+        }
+      );
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Email ou senha inválidos");
       }
-    );
 
-    const data = await response.json();
-
-    if (response.ok) {
+      // Salva o token no estado e no localStorage
       setToken(data.token);
-      setDefensor(data.defensor);
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("defensorToken", data.token);
       return true;
+    } catch (error) {
+      console.error("Erro no login:", error);
+      throw error; // Joga o erro para o componente de Login tratar
     }
-
-    throw new Error(data.error);
   };
 
   const logout = () => {
     setToken(null);
-    setDefensor(null);
-    localStorage.removeItem("token");
+    localStorage.removeItem("defensorToken");
   };
 
-  return (
-    <AuthContext.Provider value={{ token, defensor, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  const value = { token, login, logout };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-export const useAuth = () => useContext(AuthContext);
+// Hook customizado para facilitar o uso do contexto
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
