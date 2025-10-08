@@ -26,9 +26,9 @@ export const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center bg-[#00330f] justify-center p-4">
       <div className="w-full max-w-md">
-        <div className="bg-slate-800/50 p-8 rounded-2xl border border-green-700">
+        <div className="bg-slate-800/50 p-8 rounded-2xl border border-green-800">
           <div className="flex items-center gap-3 mb-6">
             <Shield className="w-8 h-8 text-amber-500" />
             <h1 className="text-2xl font-bold">Painel do Defensor</h1>
@@ -40,7 +40,7 @@ export const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3 bg-slate-700 rounded-lg"
+              className="w-full px-4 py-3 bg-slate-600 rounded-lg"
             />
             <input
               type="password"
@@ -48,7 +48,7 @@ export const Login = () => {
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               required
-              className="w-full px-4 py-3 bg-slate-700 rounded-lg"
+              className="w-full px-4 py-3 bg-slate-600 rounded-lg"
             />
             {error && (
               <p className="text-red-400 text-sm text-center">{error}</p>
@@ -56,7 +56,7 @@ export const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-slate-600 px-6 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors"
+              className="w-full bg-[#d15600] hover:bg-[#632500] disabled:bg-slate-600 px-6 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors"
             >
               <LogIn className="inline mr-2" />
               {loading ? "Entrando..." : "Entrar"}

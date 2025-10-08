@@ -48,8 +48,8 @@ export const Casos = () => {
 
       <div className="bg-slate-800/50 rounded-xl border border-green-500 overflow-hidden">
         <table className="w-full text-left">
-          <thead className="bg-slate-50/70">
-            <tr className="text-green-500">
+          <thead className="bg-slate-700/70">
+            <tr className="text-[#dae2db]">
               <th className="p-4 font-semibold">Protocolo</th>
               <th className="p-4 font-semibold">Nome do Cidadão</th>
               <th className="p-4 font-semibold">Data de Abertura</th>
@@ -60,7 +60,7 @@ export const Casos = () => {
           <tbody>
             {casos.length === 0 ? (
               <tr>
-                <td colSpan="5" className="text-center p-8 text-slate-400">
+                <td colSpan="5" className="text-center p-8 text-[#dae2db]">
                   Nenhum caso encontrado.
                 </td>
               </tr>
@@ -70,20 +70,22 @@ export const Casos = () => {
                   key={caso.id}
                   className="border-t border-slate-800 hover:bg-slate-600/50"
                 >
-                  <td className="p-4 font-mono text-sm">{caso.protocolo}</td>
-                  <td className="p-4">{caso.nome_assistido}</td>
-                  <td className="p-4 text-slate-900">
+                  <td className="p-4 font-mono text-sm text-[#dae2db]">
+                    {caso.protocolo}
+                  </td>
+                  <td className="p-4 text-[#dae2db]">{caso.nome_assistido}</td>
+                  <td className="p-4 text-[#dae2db]">
                     {new Date(caso.created_at).toLocaleDateString()}
                   </td>
                   <td className="p-4">
-                    <span className="px-2 py-1 text-xs font-semibold bg-blue-900 text-blue-300 rounded-full capitalize">
+                    <span className="px-2 py-1 text-xs font-semibold bg-[#350088] text-[#e3ddff] rounded-full capitalize">
                       {caso.status.replace("_", " ")}
                     </span>
                   </td>
                   <td className="p-4">
                     <Link
                       to={`/casos/${caso.id}`}
-                      className="flex items-center gap-2 text-blue-900 hover:text-blue-300"
+                      className="flex items-center gap-2 text-[#350088] hover:text-[#e3ddff]"
                       title="Ver Detalhes"
                     >
                       <Eye size={18} />

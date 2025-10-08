@@ -15,9 +15,9 @@ export const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 bg-stone-300 text-white flex flex-col border-r border-green-500">
-      <div className="p-6 text-2xl text-green-500 font-bold border-b border-green-500">
-        Defensoria
+    <aside className="w-64 bg-[#00330F] text-white flex flex-col border-r border-green-800">
+      <div className="p-6 text-2xl text-[#dae2db] font-bold border-b border-green-800">
+        Assistente Def Sul
       </div>
       <nav className="flex-grow p-4">
         <ul>

@@ -50,43 +50,39 @@ export const Dashboard = () => {
         <div className="flex justify-between items-center mb-5">
           <div>
             {defensor && (
-              <h1 className="text-3xl font-bold">
+              <h1 className="text-3xl text-[#dae2db] font-bold">
                 Olá, Dr(a). {defensor.nome}
               </h1>
             )}
           </div>
-          <button
-            onClick={logout}
-            className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg font-semibold"
-          >
-            Sair
-          </button>
         </div>
 
         {/* ... (o resto do seu dashboard com a lista de casos) ... */}
       </div>
       <div className="grid gap-4">
         {casos.length === 0 ? (
-          <p className="text-slate-900">Nenhum caso pendente no momento.</p>
+          <p className="text-[#dae2db]">Nenhum caso pendente no momento.</p>
         ) : (
           casos.map((caso) => (
             // Futuramente, este Link levará para a página de detalhes do caso
             <Link to={`/casos/${caso.id}`} key={caso.id}>
               <div
                 key={caso.id}
-                className="bg-slate-500/50 p-6 rounded-xl border border-green-500 hover:border-amber-500/50 transition-colors"
+                className="bg-slate-500/50 p-6 rounded-xl border border-green-800 hover:border-amber-500/50 transition-colors"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <FileText className="w-6 h-6 text-amber-500" />
                     <div>
-                      <h3 className="font-semibold">{caso.nome_assistido}</h3>
-                      <p className="text-sm text-slate-900">
+                      <h3 className="font-semibold text-[#dae2db]">
+                        {caso.nome_assistido}
+                      </h3>
+                      <p className="text-sm text-[#dae2db]">
                         Protocolo: {caso.protocolo}
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 text-slate-900 text-sm">
+                  <div className="flex items-center gap-2 text-[#dae2db] text-sm">
                     <Clock className="w-4 h-4" />
                     <span>
                       {new Date(caso.created_at).toLocaleDateString()}

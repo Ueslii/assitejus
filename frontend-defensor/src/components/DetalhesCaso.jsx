@@ -53,24 +53,30 @@ export const DetalhesCaso = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Coluna Principal */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-slate-800/50 p-6 rounded-xl border border-green-500">
-            <h2 className="text-2xl font-bold mb-4">Detalhes do Assistido</h2>
-            <p>
-              <strong>Nome:</strong> {caso.nome_assistido}
+          <div className="bg-slate-800/30 p-6 rounded-xl border border-green-500">
+            <h2 className="text-2xl font-bold mb-4 text-[#e3ddff]">
+              Detalhes do Assistido
+            </h2>
+            <p className="text-[#e3ddff]">
+              <strong className="text-[#000000]">Nome:</strong>{" "}
+              {caso.nome_assistido}
             </p>
-            <p>
-              <strong>CPF:</strong> {caso.cpf_assistido}
+            <p className="text-[#e3ddff]">
+              <strong className="text-[#000000]">CPF:</strong>{" "}
+              {caso.cpf_assistido}
             </p>
-            <p>
-              <strong>Telefone:</strong> {caso.telefone_assistido}
+            <p className="text-[#e3ddff]">
+              <strong className="text-[#000000]">Telefone:</strong>{" "}
+              {caso.telefone_assistido}
             </p>
-            <p>
-              <strong>Tipo de Ação:</strong> {caso.tipo_acao}
+            <p className="text-[#e3ddff]">
+              <strong className="text-[#000000]">Tipo de Ação:</strong>{" "}
+              {caso.tipo_acao}
             </p>
           </div>
           <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
             <h2 className="text-2xl font-bold mb-4">Relato do Caso</h2>
-            <p className="whitespace-pre-wrap">
+            <p className="whitespace-pre-wrap text-[#e3ddff]">
               {caso.relato_texto || "Nenhum relato textual fornecido."}
             </p>
           </div>
@@ -78,11 +84,11 @@ export const DetalhesCaso = () => {
 
         {/* Coluna Lateral */}
         <div className="space-y-6">
-          <div className="bg-blue-900/50 p-6 rounded-xl border border-blue-700">
-            <h2 className="text-xl font-bold text-green-400 mb-2">
+          <div className="bg-slate-900/50 p-6 rounded-xl border border-blue-700">
+            <h2 className="text-xl font-bold text-[#983d00] mb-2">
               Resumo da IA
             </h2>
-            <p className="text-blue-800">
+            <p className="text-[#d15600]">
               {caso.resumo_ia || "Resumo não disponível."}
             </p>
           </div>
@@ -91,7 +97,7 @@ export const DetalhesCaso = () => {
             <select
               onChange={handleStatusChange}
               defaultValue={caso.status}
-              className="w-full p-2 bg-slate-700 rounded-lg"
+              className="w-full p-2 bg-slate-600 rounded-lg"
             >
               <option value="recebido">Recebido</option>
               <option value="em_analise">Em Análise</option>

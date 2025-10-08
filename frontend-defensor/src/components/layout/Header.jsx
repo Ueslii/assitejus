@@ -7,9 +7,9 @@ export const Header = () => {
   const defensor = token ? jwtDecode(token) : null;
 
   return (
-    <header className="flex justify-end items-center p-6 bg-stone-300 border-b border-green-500">
+    <header className="flex justify-end items-center p-6 bg-[#00330F] border-b border-green-800">
       <div className="flex items-center gap-4">
-        <span className="font-semibold">
+        <span className="font-semibold text-[#dae2db]">
           Dr(a). {defensor?.nome || "Defensor"}
         </span>
         <button

@@ -7,7 +7,10 @@ import { DetalhesCaso } from "../DetalhesCaso";
 
 export const Layout = () => {
   return (
-    <div className="flex h-screen bg-white">
+    <div
+      className="flex h-screen bg-[#005820]
+    "
+    >
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header />

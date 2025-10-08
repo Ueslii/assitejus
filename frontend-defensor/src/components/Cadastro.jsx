@@ -51,7 +51,7 @@ export const Cadastro = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center bg-[#00330f] justify-center p-4 ">
       <div className="w-full max-w-md">
         <div className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700">
           <div className="flex items-center gap-3 mb-6">
@@ -65,7 +65,7 @@ export const Cadastro = () => {
               value={nome}
               onChange={(e) => setNome(e.target.value)}
               required
-              className="w-full px-4 py-3 bg-slate-700 rounded-lg"
+              className="w-full px-4 py-3 bg-slate-600 rounded-lg"
             />
             <input
               type="email"
@@ -73,7 +73,7 @@ export const Cadastro = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3 bg-slate-700 rounded-lg"
+              className="w-full px-4 py-3 bg-slate-600 rounded-lg"
             />
             <input
               type="password"
@@ -81,7 +81,7 @@ export const Cadastro = () => {
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               required
-              className="w-full px-4 py-3 bg-slate-700 rounded-lg"
+              className="w-full px-4 py-3 bg-slate-600 rounded-lg"
             />
 
             {error && (
@@ -94,7 +94,7 @@ export const Cadastro = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-slate-600 px-6 py-3 rounded-lg font-semibold flex items-center justify-center gap-2"
+              className="w-full bg-[#d15600] hover:bg-[#632500] disabled:bg-slate-600 px-6 py-3 rounded-lg font-semibold flex items-center justify-center gap-2"
             >
               <UserPlus className="inline mr-2" />
               {loading ? "Cadastrando..." : "Criar Conta"}
