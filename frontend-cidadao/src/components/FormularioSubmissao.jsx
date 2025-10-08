@@ -13,6 +13,7 @@ import {
   Square,
 } from "lucide-react";
 import { documentosPorAcao } from "../data//components/documentos.js";
+
 export const FormularioSubmissao = () => {
   // --- ESTADOS DO FORMULÁRIO ---
   const [nome, setNome] = useState("");
@@ -21,7 +22,7 @@ export const FormularioSubmissao = () => {
   const [tipoAcao, setTipoAcao] = useState("");
   const [relato, setRelato] = useState("");
   const [documentFiles, setDocumentFiles] = useState([]);
-
+  const [statusMessage, setStatusMessage] = useState("");
   const [acaoEspecifica, setAcaoEspecifica] = useState("");
   const [documentosMarcados, setDocumentosMarcados] = useState([]);
 
@@ -36,12 +37,15 @@ export const FormularioSubmissao = () => {
   const [generatedCredentials, setGeneratedCredentials] = useState(null);
   const documentInputRef = useRef(null);
 
-  const acoesDisponiveis = tipoAcao
-    ? Object.keys(documentosPorAcao[tipoAcao] || {})
-    : [];
-  const listaDeDocumentos = acaoEspecifica
-    ? documentosPorAcao[tipoAcao]?.[acaoEspecifica]
-    : [];
+  const acoesDisponiveis =
+    tipoAcao && documentosPorAcao[tipoAcao]
+      ? Object.keys(documentosPorAcao[tipoAcao])
+      : [];
+
+  const listaDeDocumentos =
+    tipoAcao && acaoEspecifica && documentosPorAcao[tipoAcao]?.[acaoEspecifica]
+      ? documentosPorAcao[tipoAcao][acaoEspecifica]
+      : [];
 
   // --- LÓGICA DE VALIDAÇÃO DE INPUT ---
   const handleNumericInput = (e, setter) => {
@@ -147,7 +151,23 @@ export const FormularioSubmissao = () => {
     e.preventDefault();
     setLoading(true);
     setGeneratedCredentials(null);
-
+    const timers = [
+      setTimeout(() => setStatusMessage("Analisando documentos..."), 1000),
+      setTimeout(
+        () =>
+          setStatusMessage("Transcrevendo áudio (esta etapa pode demorar)..."),
+        3000
+      ),
+      setTimeout(
+        () =>
+          setStatusMessage("Gerando resumo com a Inteligência Artificial..."),
+        8000
+      ),
+      setTimeout(
+        () => setStatusMessage("Finalizando e criando seu protocolo..."),
+        12000
+      ),
+    ];
     const formData = new FormData();
     formData.append("nome", nome);
     formData.append("cpf", cpf);
@@ -197,6 +217,8 @@ export const FormularioSubmissao = () => {
       alert(`Ocorreu um erro: ${error.message}`);
     } finally {
       setLoading(false);
+      timers.forEach(clearTimeout);
+      setStatusMessage("");
     }
   };
 
@@ -464,6 +486,11 @@ export const FormularioSubmissao = () => {
             {loading ? "Enviando..." : "Enviar Caso"}
             <Upload size={20} />
           </button>
+          {loading && (
+            <div className="text-center mt-4">
+              <p className="text-amber-400 animate-pulse">{statusMessage}</p>
+            </div>
+          )}
         </form>
       )}
     </motion.div>
